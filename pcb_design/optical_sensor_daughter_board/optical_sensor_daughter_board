@@ -1,0 +1,18 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </head>
+    <body>
+    <h1>/home/deepak/projects/github.com/dselvan/open-sassy/pcb_design/optical_sensor_daughter_board/optical_sensor_daughter_board/optical_sensor_daughter_board.sch</h1>
+    <p>Mon 17 Jun 2019 11:22:11 PM BST</p>
+    <p>Eeschema 5.1.2-f72e74a~84~ubuntu18.04.1</p>
+    <p><b>Component Count:</b>2</p>
+    <table>
+    <tr><th style='width:640px'>Ref</th><th>Qnty</th><th>Value</th><th>Part</th><th>Datasheet</th><th>Description</th><th>Vendor</th></tr><tr><td>J1</td><td>1</td><td>Conn_02x06_Counter_Clockwise</td><td>Connector_Generic:Conn_02x06_Counter_Clockwise</td><td>~</td><td>Generic connector, double row, 02x06, counter clockwise pin numbering scheme (similar to DIP packge numbering), script generated (kicad-library-utils/schlib/autogen/connector/)</td><td></td></tr><tr><td>U1</td><td>1</td><td>PMW3389</td><td>pmw3389:PMW3389</td><td>http://www.pixart.com/products-detail/4/PMW3389DM-T3QU</td><td></td><td></td></tr><!--TABLEROW-->
+    </table>
+    </body>
+</html>
+    

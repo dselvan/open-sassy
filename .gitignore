@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# KiCAD files
+_autosave*
+*.bck
+*.bak
+fp-info-cache
+*.kicad_pcb-bak
