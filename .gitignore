@@ -57,3 +57,6 @@ _autosave*
 *.bak
 fp-info-cache
 *.kicad_pcb-bak
+
+# Build files
+build/*

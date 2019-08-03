@@ -1,37 +1,39 @@
-#include <Arduino.h>
-#include <Wire.h>
+#include "OpticalSensor.h"
+#include <SPI.h>
+#include <cstdint>
 
-/*
-  Blink
-  Turns on an LED on for one second, then off for one second, repeatedly.
- 
-  This example code is in the public domain.
- */
+byte testctr = 0;
+unsigned long currTime;
+unsigned long timer;
+unsigned long pollTimer;
+volatile int32_t xydat[2];
 
-// Pin 13 has an LED connected on most Arduino boards.
-// Pin 11 has the LED on Teensy 2.0
-// Pin 6  has the LED on Teensy++ 2.0
-// Pin 13 has the LED on Teensy 3.0
-// give it a name:
-int led = 13;
-
-// the setup routine runs once when you press reset:
-void setup()
+int main()
 {
-    // initialize the digital pin as an output.
-    pinMode(led, OUTPUT);
-    Serial.begin(115200);
-}
+    OpticalSensor *os = new OpticalSensor();
 
-// the loop routine runs over and over again forever:
-void loop()
-{
-    digitalWrite(led, HIGH); // turn the LED on (HIGH is the voltage level)
-    Serial.println("HIGH!");
-    Serial.send_now();
-    delay(1000);            // wait for a second
-    digitalWrite(led, LOW); // turn the LED off by making the voltage LOW
-    Serial.println("LOW!");
-    Serial.send_now();
-    delay(1000); // wait for a second
+    while (true)
+    {
+        currTime = millis();
+
+        if (currTime > timer)
+        {
+            Serial.println(testctr++);
+            timer = currTime + 2000;
+        }
+
+        if (currTime > pollTimer)
+        {
+            os->get_xydat(xydat);
+            if (xydat[0] != 0 || xydat[1] != 0)
+            {
+                Serial.print("x = ");
+                Serial.print(xydat[0]);
+                Serial.print(" | ");
+                Serial.print("y = ");
+                Serial.println(xydat[1]);
+            }
+            pollTimer = currTime + 20;
+        }
+    }
 }

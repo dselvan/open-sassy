@@ -1,0 +1,19 @@
+{
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/opt/arduino-1.8.8/libraries",
+        "/opt/arduino-1.8.8/hardware/tools/avr/avr/include",
+        "/opt/arduino-1.8.8/hardware/arduino/avr/variants/standard"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "clang-x64"
+    }
+  ],
+  "version": 4
+}
