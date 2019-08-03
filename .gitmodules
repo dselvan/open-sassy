@@ -3,4 +3,4 @@
 	url = git@github.com:dselvan/research.git
 [submodule "arduino_makefiles"]
 	path = arduino_makefiles
-	url = https://github.com/WeAreLeka/Arduino-Makefile
+	url = git@github.com:dselvan/Arduino-Makefile.git
