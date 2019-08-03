@@ -106,8 +106,8 @@ void OpticalSensor::upload_firmware()
     // set initial CPI resolution
     write_reg(Config1, 0x77);
 
-    // Adjust Lift Cutoff Height to +3 mm
-    //write_reg(Lift_Config, 0x03);
+    // Adjust Lift Cutoff Height
+    write_reg(Lift_Config, 0x00);
 
     com_end();
 }
