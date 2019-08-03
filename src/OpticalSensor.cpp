@@ -55,7 +55,7 @@ void OpticalSensor::write_reg(int8_t reg_addr, int8_t data)
     delayMicroseconds(100); // tSWW/tSWR (=120us) minus tSCLK-NCS. Could be shortened, but is looks like a safe lower bound
 }
 
-void OpticalSensor::get_xydat(int32_t xydat[2])
+void OpticalSensor::get_xydat(int32_t xydat[3])
 {
     if (initComplete)
     {
@@ -65,6 +65,7 @@ void OpticalSensor::get_xydat(int32_t xydat[2])
 
         xydat[0] = conv_twos_comp((int32_t)read_reg(Delta_X_L));
         xydat[1] = conv_twos_comp((int32_t)read_reg(Delta_Y_L));
+        xydat[2] = conv_twos_comp((int32_t)read_reg(SQUAL));
     }
 }
 
@@ -103,7 +104,10 @@ void OpticalSensor::upload_firmware()
     write_reg(Config2, 0x00);
 
     // set initial CPI resolution
-    write_reg(Config1, 0x15);
+    write_reg(Config1, 0x77);
+
+    // Adjust Lift Cutoff Height to +3 mm
+    //write_reg(Lift_Config, 0x03);
 
     com_end();
 }

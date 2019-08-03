@@ -6,14 +6,15 @@ byte testctr = 0;
 unsigned long currTime;
 unsigned long timer;
 unsigned long pollTimer;
-volatile int32_t xydat[2];
+volatile int32_t xydat[3];
 
 int main()
 {
-    OpticalSensor *os = new OpticalSensor();
+    OpticalSensor os;
 
     while (true)
     {
+
         currTime = millis();
 
         if (currTime > timer)
@@ -24,7 +25,7 @@ int main()
 
         if (currTime > pollTimer)
         {
-            os->get_xydat(xydat);
+            os.get_xydat(xydat);
             if (xydat[0] != 0 || xydat[1] != 0)
             {
                 Serial.print("x = ");
@@ -32,6 +33,8 @@ int main()
                 Serial.print(" | ");
                 Serial.print("y = ");
                 Serial.println(xydat[1]);
+                Serial.print("SQUAL = ");
+                Serial.println(xydat[2]);
             }
             pollTimer = currTime + 20;
         }

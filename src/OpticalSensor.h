@@ -16,13 +16,13 @@ class OpticalSensor
 
 public:
     OpticalSensor();
-    void com_begin();
-    void com_end();
     int8_t read_reg(int8_t reg_addr);
     void write_reg(int8_t reg_addr, int8_t data);
-    void get_xydat(int32_t xydat[]);
+    void get_xydat(int32_t xydat[3]);
 
 private:
+    void com_begin();
+    void com_end();
     void upload_firmware();
     int32_t conv_twos_comp(int32_t b);
     void spi_setup();
