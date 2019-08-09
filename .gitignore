@@ -60,3 +60,6 @@ fp-info-cache
 
 # Build files
 build/*
+
+# Test files
+test/run_test

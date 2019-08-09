@@ -12,7 +12,7 @@ ARDUINO_DIR       = /opt/arduino-1.8.8/
 
 ### USER_LIB_PATH
 ### Path to where the your project's libraries are stored.
-USER_LIB_PATH     :=  $(realpath $(PROJECT_DIR)/lib)
+USER_LIB_PATH     :=  "$(realpath $(PROJECT_DIR)/lib)"
 
 ### BOARD_TAG & BOARD_SUB
 ### For Arduino IDE 1.0.x

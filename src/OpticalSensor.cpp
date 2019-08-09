@@ -1,11 +1,24 @@
 #include "OpticalSensor.h"
 #include "PMW3360Registers.h"
 #include "PMW3360Firmware.h"
+#include "../lib/TeensyThreads/TeensyThreads.h"
 #include <SPI.h>
 #include <avr/pgmspace.h>
 
 OpticalSensor::OpticalSensor()
 {
+    spi_setup();
+    sensor_startup();
+
+    delay(5000);
+
+    initComplete = true;
+}
+
+OpticalSensor::OpticalSensor(Threads::Mutex &m)
+{
+    thread_lock = m;
+
     spi_setup();
     sensor_startup();
 
@@ -26,6 +39,8 @@ void OpticalSensor::com_end()
 
 int8_t OpticalSensor::read_reg(int8_t reg_addr)
 {
+    Threads::Scope m(thread_lock);
+
     com_begin();
 
     // send adress of the register, with MSBit = 0 to indicate it's a read
@@ -43,6 +58,8 @@ int8_t OpticalSensor::read_reg(int8_t reg_addr)
 
 void OpticalSensor::write_reg(int8_t reg_addr, int8_t data)
 {
+    Threads::Scope m(thread_lock);
+
     com_begin();
 
     //send adress of the register, with MSBit = 1 to indicate it's a write
@@ -71,6 +88,8 @@ void OpticalSensor::get_xydat(int32_t xydat[3])
 
 void OpticalSensor::upload_firmware()
 {
+    Threads::Scope m(thread_lock);
+
     //Write 0 to Rest_En bit of Config2 register to disable Rest mode.
     write_reg(Config2, 0x20);
 
@@ -124,6 +143,8 @@ int32_t OpticalSensor::conv_twos_comp(int32_t b)
 
 void OpticalSensor::spi_setup()
 {
+    Threads::Scope m(thread_lock);
+
     // Serial for monitor over USB, speed doesn't matter
     Serial.begin(9600);
 
@@ -149,7 +170,7 @@ void OpticalSensor::sensor_startup()
 
     // Force reset
     write_reg(Power_Up_Reset, 0x5a);
-    delay(50);
+    threads.delay(50);
 
     // Clear Key Registers
     read_reg(Motion);
@@ -160,5 +181,5 @@ void OpticalSensor::sensor_startup()
 
     // Upload SROM incase it's been cleared from frame capture
     upload_firmware();
-    delay(10);
+    threads.delay(10);
 }

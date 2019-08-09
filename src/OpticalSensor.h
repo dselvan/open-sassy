@@ -2,6 +2,7 @@
 #define _OPTICALSENSOR_
 
 #include <cstdint>
+#include "../lib/TeensyThreads/TeensyThreads.h"
 
 // TODO: Move into a config file that's read from the SD card
 // Set this to what pin your "INT0" hardware interrupt feature is on
@@ -11,16 +12,19 @@
 
 class OpticalSensor
 {
-    bool initComplete = false;
-    const int32_t ncs = SPI_Slave_Select_Pin;
-
 public:
     OpticalSensor();
+    OpticalSensor(Threads::Mutex &m);
     int8_t read_reg(int8_t reg_addr);
     void write_reg(int8_t reg_addr, int8_t data);
     void get_xydat(int32_t xydat[3]);
 
 private:
+    // Private Members
+    bool initComplete = false;
+    const int32_t ncs = SPI_Slave_Select_Pin;
+    Threads::Mutex &thread_lock;
+    // Methods
     void com_begin();
     void com_end();
     void upload_firmware();

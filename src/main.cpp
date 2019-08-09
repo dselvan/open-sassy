@@ -1,42 +1,39 @@
 #include "OpticalSensor.h"
+#include "../lib/TeensyThreads/TeensyThreads.h"
 #include <SPI.h>
 #include <cstdint>
 
-byte testctr = 0;
-unsigned long currTime;
-unsigned long timer;
-unsigned long pollTimer;
-volatile int32_t xydat[3];
+float sampling_frequency = 500; // frequency set in Hz
+unsigned long time_now = 0;
+int count = 0;
 
 int main()
 {
-    OpticalSensor os;
+    // Thread mutex for locking on register read and write opperations
+    Threads::Mutex thread_lock;
+
+    OpticalSensor os(thread_lock); // needs a constructor for running frequency
+    // create thread for slip angle calculation (needs to be greater than main loop)
 
     while (true)
     {
-
-        currTime = millis();
-
-        if (currTime > timer)
+        // make sure all conditions fit within 1/Fs time
+        if ((unsigned long)(millis() - time_now) > (1 / sampling_frequency))
         {
-            Serial.println(testctr++);
-            timer = currTime + 2000;
-        }
-
-        if (currTime > pollTimer)
-        {
-            os.get_xydat(xydat);
-            if (xydat[0] != 0 || xydat[1] != 0)
+            time_now = millis();
+            count++;
+            if (count >= sampling_frequency)
             {
-                Serial.print("x = ");
-                Serial.print(xydat[0]);
-                Serial.print(" | ");
-                Serial.print("y = ");
-                Serial.println(xydat[1]);
-                Serial.print("SQUAL = ");
-                Serial.println(xydat[2]);
+                Serial.println("Hit");
             }
-            pollTimer = currTime + 20;
+            // output sig1 to serial
+            // output sig2 to serial ...
+            // output s1, s2, etc. to SD card
+        }
+        else
+        {
+            Serial.println(count);
+            count = 0;
         }
     }
 }
