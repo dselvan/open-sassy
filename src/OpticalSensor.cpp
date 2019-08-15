@@ -72,7 +72,7 @@ void OpticalSensor::write_reg(int8_t reg_addr, int8_t data)
     delayMicroseconds(100); // tSWW/tSWR (=120us) minus tSCLK-NCS. Could be shortened, but is looks like a safe lower bound
 }
 
-void OpticalSensor::get_xydat(int32_t xydat[3])
+void OpticalSensor::get_xydat(int32_t xydat[2])
 {
     if (initComplete)
     {
@@ -82,7 +82,7 @@ void OpticalSensor::get_xydat(int32_t xydat[3])
 
         xydat[0] = conv_twos_comp((int32_t)read_reg(Delta_X_L));
         xydat[1] = conv_twos_comp((int32_t)read_reg(Delta_Y_L));
-        xydat[2] = conv_twos_comp((int32_t)read_reg(SQUAL));
+        // xydat[2] = conv_twos_comp((int32_t)read_reg(SQUAL));
     }
 }
 

@@ -3,6 +3,9 @@
 #include <SPI.h>
 #include <cstdint>
 
+// create volitile data buffer
+// create contract for
+
 float sampling_frequency = 500; // frequency set in Hz
 unsigned long time_now = 0;
 int count = 0;

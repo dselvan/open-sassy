@@ -17,7 +17,7 @@ public:
     OpticalSensor(Threads::Mutex &m);
     int8_t read_reg(int8_t reg_addr);
     void write_reg(int8_t reg_addr, int8_t data);
-    void get_xydat(int32_t xydat[3]);
+    void get_xydat(int32_t xydat[2]);
 
 private:
     // Private Members
