@@ -38,7 +38,7 @@ TEST_CASE("Points converted to vector", "[points_to_vector]")
     int x[2] = {0, 1};
     int y[2] = {0, 1};
 
-    SignalProcessing::points_to_vector(x, y, &mag, &dir);
+    SignalProcessing::points_to_vector(x[0], x[1], y[0], y[1], &mag, &dir);
     REQUIRE(mag == sqrt(2));
     REQUIRE(dir == 45);
 
@@ -47,7 +47,7 @@ TEST_CASE("Points converted to vector", "[points_to_vector]")
         int a[2] = {0, -1};
         int b[2] = {0, 1};
 
-        SignalProcessing::points_to_vector(a, b, &mag, &dir);
+        SignalProcessing::points_to_vector(a[0], a[1], b[0], b[1], &mag, &dir);
         REQUIRE(mag == sqrt(2));
         REQUIRE(dir == 135);
     }
@@ -57,7 +57,7 @@ TEST_CASE("Points converted to vector", "[points_to_vector]")
         int a[2] = {0, -1};
         int b[2] = {0, -1};
 
-        SignalProcessing::points_to_vector(a, b, &mag, &dir);
+        SignalProcessing::points_to_vector(a[0], a[1], b[0], b[1], &mag, &dir);
         REQUIRE(mag == sqrt(2));
         REQUIRE(dir == -135);
     }
@@ -67,7 +67,7 @@ TEST_CASE("Points converted to vector", "[points_to_vector]")
         int a[2] = {0, 1};
         int b[2] = {0, -1};
 
-        SignalProcessing::points_to_vector(a, b, &mag, &dir);
+        SignalProcessing::points_to_vector(a[0], a[1], b[0], b[1], &mag, &dir);
         REQUIRE(mag == sqrt(2));
         REQUIRE(dir == -45);
     }
@@ -77,7 +77,7 @@ TEST_CASE("Points converted to vector", "[points_to_vector]")
         int a[2] = {3, 3};
         int b[2] = {4, 4};
 
-        SignalProcessing::points_to_vector(a, b, &mag, &dir);
+        SignalProcessing::points_to_vector(a[0], a[1], b[0], b[1], &mag, &dir);
         REQUIRE(mag == 0);
         REQUIRE(dir == 0);
     }

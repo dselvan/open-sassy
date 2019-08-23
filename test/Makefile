@@ -5,7 +5,7 @@ SRC_DIR=../src
 CPP_FLAGS=-std=c++11 -Wall
  
 INCLUDES=\
-	-I$(LIB_DIR)/catch \
+	-I$(LIB_DIR) \
 	-I${SRC_DIR}
 
 SRCS=test.cpp \

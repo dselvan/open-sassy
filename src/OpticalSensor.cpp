@@ -1,9 +1,11 @@
 #include "OpticalSensor.h"
 #include "PMW3360Registers.h"
 #include "PMW3360Firmware.h"
-#include "../lib/TeensyThreads/TeensyThreads.h"
+//#include "../lib/TeensyThreads.h"
 #include <SPI.h>
 #include <avr/pgmspace.h>
+
+#define OUT
 
 OpticalSensor::OpticalSensor()
 {
@@ -15,17 +17,17 @@ OpticalSensor::OpticalSensor()
     initComplete = true;
 }
 
-OpticalSensor::OpticalSensor(Threads::Mutex &m)
-{
-    thread_lock = m;
+// OpticalSensor::OpticalSensor(Threads::Mutex &m)
+// {
+//     thread_lock = m;
 
-    spi_setup();
-    sensor_startup();
+//     spi_setup();
+//     sensor_startup();
 
-    delay(5000);
+//     delay(5000);
 
-    initComplete = true;
-}
+//     initComplete = true;
+// }
 
 void OpticalSensor::com_begin()
 {
@@ -39,7 +41,7 @@ void OpticalSensor::com_end()
 
 int8_t OpticalSensor::read_reg(int8_t reg_addr)
 {
-    Threads::Scope m(thread_lock);
+    // Threads::Scope m(thread_lock);
 
     com_begin();
 
@@ -58,7 +60,7 @@ int8_t OpticalSensor::read_reg(int8_t reg_addr)
 
 void OpticalSensor::write_reg(int8_t reg_addr, int8_t data)
 {
-    Threads::Scope m(thread_lock);
+    // Threads::Scope m(thread_lock);
 
     com_begin();
 
@@ -72,7 +74,7 @@ void OpticalSensor::write_reg(int8_t reg_addr, int8_t data)
     delayMicroseconds(100); // tSWW/tSWR (=120us) minus tSCLK-NCS. Could be shortened, but is looks like a safe lower bound
 }
 
-void OpticalSensor::get_xydat(int32_t xydat[2])
+void OpticalSensor::get_xydat(OUT int32_t xydat[2])
 {
     if (initComplete)
     {
@@ -88,7 +90,7 @@ void OpticalSensor::get_xydat(int32_t xydat[2])
 
 void OpticalSensor::upload_firmware()
 {
-    Threads::Scope m(thread_lock);
+    // Threads::Scope m(thread_lock);
 
     //Write 0 to Rest_En bit of Config2 register to disable Rest mode.
     write_reg(Config2, 0x20);
@@ -143,7 +145,7 @@ int32_t OpticalSensor::conv_twos_comp(int32_t b)
 
 void OpticalSensor::spi_setup()
 {
-    Threads::Scope m(thread_lock);
+    // Threads::Scope m(thread_lock);
 
     // Serial for monitor over USB, speed doesn't matter
     Serial.begin(9600);
@@ -170,7 +172,8 @@ void OpticalSensor::sensor_startup()
 
     // Force reset
     write_reg(Power_Up_Reset, 0x5a);
-    threads.delay(50);
+    //threads.delay(50);
+    delay(50);
 
     // Clear Key Registers
     read_reg(Motion);
@@ -181,5 +184,6 @@ void OpticalSensor::sensor_startup()
 
     // Upload SROM incase it's been cleared from frame capture
     upload_firmware();
-    threads.delay(10);
+    //threads.delay(10);
+    delay(10);
 }
