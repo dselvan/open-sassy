@@ -45,19 +45,19 @@ void SlipAngle::getSlipAngle()
     SignalProcessing::points_to_vector(0, xdot, 0, ydot,
                                        &mag, &dir);
 
-    *SlipAngle::slip_angle = dir;
-    // if ((dir > 0) && (dir < 180))
+    //*SlipAngle::slip_angle = dir;
+    if ((dir > 0) && (dir < 180))
+    {
+        *slip_angle = 90 - dir;
+    }
+    // else if ((dir > 90) && (dir < 180))
     // {
-    //     *slip_angle = 90 - dir;
+    //     *slip_angle = dir - 90;
     // }
-    // // else if ((dir > 90) && (dir < 180))
-    // // {
-    // //     *slip_angle = dir - 90;
-    // // }
-    // else
-    // {
-    //     *slip_angle = -999;
-    // }
+    else
+    {
+        *slip_angle = -999;
+    }
     // if 0 < dir < 90 then *slip_angle = 90 - d;
     // else if 90 < dir < 180 then *slip_angle = d - 90;
     // else *slip_angle = -999;

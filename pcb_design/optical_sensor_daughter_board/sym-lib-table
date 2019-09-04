@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name pmw3389)(type Legacy)(uri ${KIPRJMOD}/pmw3389.lib)(options "")(descr ""))
+  (lib (name Sensor_Optical_Navigation)(type Legacy)(uri ${KIPRJMOD}/Sensor_Optical_Navigation.lib)(options "")(descr ""))
 )

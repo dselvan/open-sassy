@@ -8,9 +8,10 @@
 // create volitile data buffer
 // create contract for
 
-float sampling_frequency = 50; // frequency set in Hz
+float sampling_frequency = 2; // frequency set in Hz
 unsigned long time_now = 0;
-int count = 0;
+unsigned long t2 = 0;
+volatile int count = 0;
 volatile double slip_angle = 0;
 
 //RingBuf<int, 5> rb;
@@ -28,24 +29,22 @@ int main()
     while (true)
     {
         // make sure all conditions fit within 1/Fs time
-        if ((unsigned long)(millis() - time_now) > (1000 / sampling_frequency))
+        if ((unsigned long)(millis() - time_now) > (unsigned long)(13))
         {
             time_now = millis();
+            sa.getSlipAngle();
             count++;
-            if (count <= sampling_frequency)
-            {
-                sa.getSlipAngle();
-                Serial.print(slip_angle);
-                Serial.print(" deg \n");
-            }
-            else
-            {
-                Serial.println("------------------------Hit min frequency-----------------------");
-                count = 0;
-            }
             // output sig1 to serial
             // output sig2 to serial ...
             // output s1, s2, etc. to SD card
+        }
+        if ((unsigned long)(millis() - t2) > (unsigned long)(1000))
+        {
+            t2 = millis();
+            Serial.print(slip_angle);
+            Serial.print(" deg \n");
+            Serial.println(count);
+            count = 0;
         }
     }
 }

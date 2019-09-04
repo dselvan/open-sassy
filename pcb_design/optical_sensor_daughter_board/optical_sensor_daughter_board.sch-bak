@@ -24,6 +24,28 @@ F 3 "" H 4750 4900 50  0001 C CNN
 	1    4750 4200
 	1    0    0    -1  
 $EndComp
+$Comp
+L Device:C C1
+U 1 1 5D602D14
+P 3350 3750
+F 0 "C1" H 3465 3796 50  0000 L CNN
+F 1 "0.1uF" H 3465 3705 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3388 3600 50  0001 C CNN
+F 3 "~" H 3350 3750 50  0001 C CNN
+	1    3350 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C2
+U 1 1 5D6030A6
+P 3800 3750
+F 0 "C2" H 3915 3796 50  0000 L CNN
+F 1 "4.7uF" H 3915 3705 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3838 3600 50  0001 C CNN
+F 3 "~" H 3800 3750 50  0001 C CNN
+	1    3800 3750
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
 	3350 3900 3800 3900
 Wire Wire Line
@@ -399,26 +421,4 @@ Wire Wire Line
 	8100 4950 8100 5000
 Text GLabel 4100 2400 0    50   Input ~ 0
 VIN
-$Comp
-L Device:C C2
-U 1 1 5D6030A6
-P 3800 3750
-F 0 "C2" H 3915 3796 50  0000 L CNN
-F 1 "4.7uF" H 3915 3705 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3838 3600 50  0001 C CNN
-F 3 "~" H 3800 3750 50  0001 C CNN
-	1    3800 3750
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C1
-U 1 1 5D602D14
-P 3350 3750
-F 0 "C1" H 3465 3796 50  0000 L CNN
-F 1 "0.1uF" H 3465 3705 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 3388 3600 50  0001 C CNN
-F 3 "~" H 3350 3750 50  0001 C CNN
-	1    3350 3750
-	1    0    0    -1  
-$EndComp
 $EndSCHEMATC
