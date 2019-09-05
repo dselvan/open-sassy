@@ -5,11 +5,11 @@
 
 #define OUT
 
-double SignalProcessing::diff(RingBuf<int, 5> &signal_buffer, double sampling_frequency)
+double SignalProcessing::diff(RingBuf<int, 5> &signal_buffer, int sampling_frequency)
 {
 
     double firstDer = 0.0;
-    double t = 1 / ((sampling_frequency > 0) ? sampling_frequency : 1);
+    double t = 1.0 / ((sampling_frequency > 0) ? sampling_frequency : 1);
 
     firstDer = (4.0 / 3.0 * (double)(signal_buffer[3] - signal_buffer[1]) / (2.0 * t) -
                 1.0 / 3.0 * (double)(signal_buffer[4] - signal_buffer[0]) / (4.0 * t));

@@ -5,10 +5,7 @@
 #include <cstdint>
 //#include "../lib/RingBuf.h"
 
-// create volitile data buffer
-// create contract for
-
-float sampling_frequency = 2; // frequency set in Hz
+int sampling_frequency = 100; // frequency set in Hz
 unsigned long time_now = 0;
 unsigned long t2 = 0;
 volatile int count = 0;
@@ -28,8 +25,7 @@ int main()
 
     while (true)
     {
-        // make sure all conditions fit within 1/Fs time
-        if ((unsigned long)(millis() - time_now) > (unsigned long)(13))
+        if ((unsigned long)(millis() - time_now) > (1000 / sampling_frequency))
         {
             time_now = millis();
             sa.getSlipAngle();

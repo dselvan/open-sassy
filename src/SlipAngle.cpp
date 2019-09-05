@@ -5,7 +5,7 @@
 
 #define OUT
 
-SlipAngle::SlipAngle(OpticalSensor &os, double sampling_frequency, OUT double *slip_angle)
+SlipAngle::SlipAngle(OpticalSensor &os, int sampling_frequency, OUT double *slip_angle)
 {
     this->os = &os;
     this->sampling_frequency = sampling_frequency;
@@ -35,30 +35,21 @@ void SlipAngle::getSlipAngle()
 
     SlipAngle::x_buffer.pop(data);
     SlipAngle::y_buffer.pop(data);
-    SlipAngle::x_buffer.push(SlipAngle::xydat[0]);
-    SlipAngle::y_buffer.push(SlipAngle::xydat[1]);
+    if (SlipAngle::xydat[2] > 0)
+    {
+        SlipAngle::x_buffer.push(SlipAngle::xydat[0]);
+        SlipAngle::y_buffer.push(SlipAngle::xydat[1]);
+    }
+    else
+    {
+        SlipAngle::x_buffer.push(0);
+        SlipAngle::y_buffer.push(0);
+    }
 
     xdot = SignalProcessing::diff(SlipAngle::x_buffer, SlipAngle::sampling_frequency);
-    //Serial.println(xdot);
     ydot = SignalProcessing::diff(SlipAngle::y_buffer, SlipAngle::sampling_frequency);
-    //Serial.println(ydot);
     SignalProcessing::points_to_vector(0, xdot, 0, ydot,
                                        &mag, &dir);
 
-    //*SlipAngle::slip_angle = dir;
-    if ((dir > 0) && (dir < 180))
-    {
-        *slip_angle = 90 - dir;
-    }
-    // else if ((dir > 90) && (dir < 180))
-    // {
-    //     *slip_angle = dir - 90;
-    // }
-    else
-    {
-        *slip_angle = -999;
-    }
-    // if 0 < dir < 90 then *slip_angle = 90 - d;
-    // else if 90 < dir < 180 then *slip_angle = d - 90;
-    // else *slip_angle = -999;
+    *SlipAngle::slip_angle = dir;
 }

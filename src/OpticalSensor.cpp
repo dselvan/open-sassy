@@ -1,6 +1,6 @@
 #include "OpticalSensor.h"
 #include "PMW3360Registers.h"
-#include "PMW3360Firmware.h"
+#include "PMW3360Firmware_v08.h"
 //#include "../lib/TeensyThreads.h"
 #include <SPI.h>
 #include <avr/pgmspace.h>
@@ -74,7 +74,7 @@ void OpticalSensor::write_reg(int8_t reg_addr, int8_t data)
     delayMicroseconds(100); // tSWW/tSWR (=120us) minus tSCLK-NCS. Could be shortened, but is looks like a safe lower bound
 }
 
-void OpticalSensor::get_xydat(OUT int32_t xydat[2])
+void OpticalSensor::get_xydat(OUT int32_t xydat[3])
 {
     if (initComplete)
     {
@@ -84,7 +84,7 @@ void OpticalSensor::get_xydat(OUT int32_t xydat[2])
 
         xydat[0] = conv_twos_comp((int32_t)read_reg(Delta_X_L));
         xydat[1] = conv_twos_comp((int32_t)read_reg(Delta_Y_L));
-        // xydat[2] = conv_twos_comp((int32_t)read_reg(SQUAL));
+        xydat[2] = conv_twos_comp((int32_t)read_reg(SQUAL));
     }
 }
 
@@ -128,7 +128,7 @@ void OpticalSensor::upload_firmware()
     write_reg(Config1, 0x15);
 
     // Adjust Lift Cutoff Height
-    write_reg(Lift_Config, 0x00);
+    // write_reg(Lift_Config, 0x00);
 
     com_end();
 }

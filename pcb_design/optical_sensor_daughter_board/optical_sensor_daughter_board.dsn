@@ -64,7 +64,7 @@
       (place U2 135550 -96770 front 0 (PN PMW3360))
     )
     (component "Package_TO_SOT_SMD:SOT-23-5"
-      (place U1 140350 -109175 front 0 (PN "TLV70019_SOT23-5"))
+      (place U1 140350 -109175 front 180 (PN "TLV70019_SOT23-5"))
     )
     (component Resistor_SMD:R_0603_1608Metric_Pad1.05x0.95mm_HandSolder
       (place R2 126650 -109250 front 0 (PN 39))
@@ -272,10 +272,9 @@
     (net SS
       (pins U6-4 U2-13)
     )
-    (class kicad_default "" GND GPO LED_P MISO MISO_3.3V MOIS_3.3V MOSI MOTION
-      MOTION_3.3V NCS NRESET "Net-(C1-Pad2)" "Net-(C3-Pad2)" "Net-(R2-Pad2)"
-      "Net-(U1-Pad4)" "Net-(U2-Pad1)" "Net-(U2-Pad14)" "Net-(U2-Pad16)" "Net-(U2-Pad2)"
-      "Net-(U2-Pad6)" RESET SCLK SLCK_3.3V SS SS_3.3V VDCPIX VDD VDDIO VIN
+    (class kicad_default "" GND MISO MISO_3.3V MOIS_3.3V MOSI MOTION MOTION_3.3V
+      "Net-(C1-Pad2)" "Net-(C3-Pad2)" "Net-(R2-Pad2)" RESET SCLK SLCK_3.3V
+      SS SS_3.3V VDD VIN
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
